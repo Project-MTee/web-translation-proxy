@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +38,8 @@ namespace WebTranslationProxy
             services.AddSingleton<HTMLHelper>();
 
             services.AddControllers();
+
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +59,18 @@ namespace WebTranslationProxy
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                // Startup probe
+                endpoints.MapHealthChecks("/health/startup", new HealthCheckOptions()
+                {
+
+                });
+
+                // Liveness / readyness probe
+                endpoints.MapHealthChecks("/health/live", new HealthCheckOptions()
+                {
+
+                });
             });
         }
     }
