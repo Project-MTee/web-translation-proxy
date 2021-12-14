@@ -48,3 +48,18 @@ or (Release configuration):
     /                       /
 
 ```
+
+# Monitor
+
+## Healthcheck probes
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+
+Startup probe / Readiness probe:
+
+`/health/ready`
+
+Liveness probe:
+
+`/health/live`
+
